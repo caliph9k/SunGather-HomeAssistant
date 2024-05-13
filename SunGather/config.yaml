@@ -20,13 +20,13 @@ services:
 map: 
   - share:rw
 options: 
-  host: 192.168.1.100
   timeout: 10
   scan_interval: 30
-  connection: "http"
-  smart_meter: True
-  custom_mqtt_server: False
-  log_console: "INFO"
+  - host: 192.168.1.100
+    connection: "http"
+    smart_meter: True
+    custom_mqtt_server: False
+    log_console: "INFO"
 schema:
   host: str
   timeout: int(3,60)?
