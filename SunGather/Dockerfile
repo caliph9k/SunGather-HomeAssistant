@@ -6,7 +6,7 @@ ARG BUILD_VERSION
 ARG BUILD_ARCH
 
 COPY requirements.txt ./
-RUN apk add --no-cache py3-pip yq
+RUN apk add --no-cache py3-pip yq git
 # pycryptodomex 3.14 currently fails to compile for arm64
 
 # Prepare venv
@@ -16,9 +16,14 @@ RUN source ./venv/bin/activate && \
     pip install --no-cache-dir --upgrade -r requirements.txt
 #RUN pip install --no-cache-dir --upgrade pycryptodomex==3.11.0 -r requirements.txt
 
-COPY SunGather/SunGather/ /
-COPY config-hassio.yaml /
+RUN git clone https://github.com/caliph9k/SunGather
+
 COPY run.sh /
+COPY SungrowModbusWebClient-0.3.3-py3-none-any.whl /
+
+# Install SunGather and SungrowModbusWebClient
+RUN source ./venv/bin/activate && \
+    pip install --no-cache-dir /SungrowModbusWebClient-0.3.3-py3-none-any.whl
 
 # Install requirements for add-on
 RUN chmod a+x /run.sh

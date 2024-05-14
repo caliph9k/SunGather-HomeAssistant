@@ -17,23 +17,29 @@ discovery:
   - "mqtt"
 services:
   - "mqtt:need"
-map: 
+map:
   - share:rw
-options: 
+options:
   timeout: 10
   scan_interval: 30
-  - host: 192.168.1.100
-    connection: "http"
-    smart_meter: True
-    custom_mqtt_server: False
-    log_console: "INFO"
+  inverter:
+    - host: 192.168.1.100
+      connection: "http"
+      smart_meter: True
+      custom_mqtt_server: False
+      log_console: "INFO"
+      username: "user"
+      password: "pw1111"
 schema:
-  host: str
-  timeout: int(3,60)?
-  scan_interval: int(5,600)?
-  connection: "list(sungrow|modbus|http)"
-  smart_meter: bool
-  custom_mqtt_server: bool
-  log_console: "list(OFF|INFO|WARNING|ERROR|DEBUG)?"
+  timeout: int(3,60)
+  scan_interval: int(5,600)
+  inverter:
+    - host: str
+      connection: "list(sungrow|modbus|http)"
+      smart_meter: bool
+      custom_mqtt_server: bool
+      log_console: "list(OFF|INFO|WARNING|ERROR|DEBUG)?"
+      username: str
+      password: password
 panel_icon: mdi:SolarPowerVariant
 init: false

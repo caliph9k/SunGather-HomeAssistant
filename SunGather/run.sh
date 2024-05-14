@@ -57,4 +57,10 @@ yq -i "
 " /share/SunGather/config.yaml
 
 source ./venv/bin/activate
-exec python3 /sungather.py -c /share/SunGather/config.yaml -l /share/SunGather/
+cd SunGather/SunGather
+
+sgmwcVer=`pip list | grep SungrowModbusWebClient | awk -F' ' '{print $2}'`
+if [ "${sgmwcVer}" != "0.3.3" ]; then
+  pip install /share/SunGather/dist/SungrowModbusWebClient-0.3.3-py3-none-any.whl
+fi
+exec python3 ./sungather.py -c /share/SunGather/config.yaml -l /share/SunGather/
